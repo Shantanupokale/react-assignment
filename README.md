@@ -1,16 +1,75 @@
-# React + Vite
+# Course Learning Platform Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern course learning platform built with React, Vite, and Tailwind CSS. Explore courses, track progress, and manage content with an intuitive admin interface.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Live Site:** https://react-assignment-dusky-ten.vercel.app/
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend:** React + Vite + JavaScript
+- **Styling:** Tailwind CSS + shadcn/ui
+- **State Management:** Zustand
+- **Storage:** localStorage
+- **Deployment:** Vercel
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 📚 Interactive course explorer with sidebar navigation
+- 📝 Markdown rendering with syntax highlighting
+- ✅ Progress tracking with localStorage persistence
+- 👨‍💼 Admin panel for course management
+- 🔍 Search and filter courses/topics
+- 📥📤 Import/export JSON data
+- 📱 Fully responsive design
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+npm install
+```
+```bash
+# Start development server
+npm run dev
+```
+```bash
+# Build for production
+npm run build
+```
+## 📁 Project Structure
+
+```
+src/
+├── components/            
+│   ├── course/              # Components specific to the course view/management
+│   │   ├── Breadcrumbs.jsx  
+│   │   ├── EmptyState.jsx  
+│   │   ├── MarkdownRenderer.jsx # Renders markdown
+│   │   └── SearchInput.jsx 
+│   └── ui/                 
+│       └── sidebar.jsx      
+├── data/                  
+│   ├── courses.json         # All course data
+│   └── users.json           # User/authentication data (mock)
+├── pages/                  
+│   ├── AdminPage.jsx        # Admin view
+│   ├── CoursesPage.jsx      # Course list view
+│   └── EditCoursePage.jsx   # Course editing view
+├── store/                  
+│   └── useCoursesStore.js   # Course-related state store
+├── App.jsx                  # Main application component
+└── main.jsx                 # Application entry point
+```
+
+## 🎯 Key Components
+
+- **Course Explorer** - Hierarchical navigation with breadcrumbs
+- **Markdown Renderer** - Code blocks, tables, and formatted content
+- **Progress Tracking** - Completion states with percentages
+- **Admin Interface** - Create, edit, import/export courses
+
+## 🔧 Known Issues
+
+- Missing unique IDs in course data structure
