@@ -2,7 +2,6 @@ import { ChevronLeft, ChevronRight, CheckCircle2, Circle } from "lucide-react"
 import { useCoursesStore } from "../store/useCoursesStore.js"
 import Sidebar from "../components/Sidebar.jsx"
 import Breadcrumbs from "../components/course/Breadcrumbs.jsx"
-import MarkdownViewer from "../components/course/MarkdownViewer.jsx"
 import EmptyState from "../components/course/EmptyState.jsx"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -63,7 +62,7 @@ export default function CoursesPage() {
 
             <header className="space-y-3">
               <div className="flex items-center gap-3">
-                <h1 className="text-4xl font-bold">{course.title}</h1>
+                <h1 className="text-4xl font-medium">{course.title}</h1>
                 <Badge>{course.difficulty}</Badge>
               </div>
 
@@ -73,8 +72,8 @@ export default function CoursesPage() {
 
             {/* Your Progress */}
             <div className="bg-muted rounded-lg p-6 shadow-sm">
-              <h3 className="font-semibold flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-primary" />
+              <h3 className="font-normal flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-[#00BC7D]" />
                 Your Progress
               </h3>
               <div className="flex items-center gap-3 mt-3">
@@ -90,7 +89,7 @@ export default function CoursesPage() {
           <article className="rounded-lg border bg-card shadow-sm p-6 space-y-6">
             <div className="flex justify-between items-center gap-3">
               <div>
-                <h2 className="text-3xl font-bold">{subtopic.title}</h2>
+                <h2 className="text-3xl font-medium">{subtopic.title}</h2>
                 <p className="text-sm text-muted-foreground">
                   {course.title} → {topic.title}
                 </p>
@@ -105,7 +104,7 @@ export default function CoursesPage() {
               >
                 {completed ? (
                   <>
-                    <CheckCircle2 className="h-4 w-4" /> Completed
+                    <CheckCircle2 className="h-4 w-4 " /> Completed
                   </>
                 ) : (
                   <>
@@ -116,8 +115,10 @@ export default function CoursesPage() {
                  
             </div>
 
-
+                <div className=' border rounded-lg px-4 py-2 bg-muted'>
+                  
                 <MarkdownRenderer content={subtopic.content} />
+</div>
                 <div>
                   {console.log(subtopic.content.split('\n'))}
                 </div>

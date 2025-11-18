@@ -9,19 +9,19 @@ function Breadcrumbs({ course, topic, subtopic }) {
         {course && (
           <>
             <li aria-hidden="true">/</li>
-            <li className="truncate max-w-[160px]">{course.title}</li>
+            <li className="truncate max-w-40">{course.title}</li>
           </>
         )}
         {topic && (
           <>
             <li aria-hidden="true">/</li>
-            <li className="truncate max-w-[160px]">{topic.title}</li>
+            <li className="truncate max-w-40">{topic.title}</li>
           </>
         )}
         {subtopic && (
           <>
             <li aria-hidden="true">/</li>
-            <li className="truncate max-w-[160px] font-medium text-slate-700">
+            <li className="truncate max-w-40 font-medium text-slate-700">
               {subtopic.title}
             </li>
           </>

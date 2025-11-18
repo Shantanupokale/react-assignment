@@ -6,49 +6,61 @@ function App() {
   const location = useLocation()
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark ">
-      {/* Top bar */}
-      <header className="border-b bg-white">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <h1 className="text-base font-semibold tracking-tight">
+    <div className="min-h-screen bg-[#0F0F11] text-gray-200 font-inter">
+      {/* Top Bar */}
+      <header className="border-b border-white/10 bg-black/30 backdrop-blur-xl">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+          
+          <h1 className="text-lg font-semibold tracking-tight bg-primary text-transparent bg-clip-text">
             Course Explorer
           </h1>
 
-          <div className="flex gap-2 text-sm">
+          <div className="flex gap-3 text-sm font-medium">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `rounded-md px-3 py-1 outline-none transition ${
+                `
+                relative rounded-md px-4 py-1.5 transition-all duration-200
+                ${
                   isActive
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-700 hover:bg-slate-100"
-                }`
+                    ? "text-black bg-primary shadow-md"
+                    : "text-gray-400 hover:text-white hover:bg-white/10"
+                }
+                `
               }
               aria-label="Courses tab"
             >
               Courses
             </NavLink>
+
             <NavLink
               to="/admin"
               className={({ isActive }) =>
-                `rounded-md px-3 py-1 outline-none transition ${
+                `
+                relative rounded-md px-4 py-1.5 transition-all duration-200
+                ${
                   isActive
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-700 hover:bg-slate-100"
-                }`
+                    ? "text-black bg-white shadow-md"
+                    : "text-gray-400 hover:text-white hover:bg-white/10"
+                }
+                `
               }
               aria-label="Admin tab"
             >
               Admin
             </NavLink>
           </div>
+
         </nav>
       </header>
 
-      <Routes location={location}>
-        <Route path="/" element={<CoursesPage />} />
-        <Route path="/admin" element={<AdminPage />} />
-      </Routes>
+      {/* ROUTES */}
+      <div className="mx-auto w-full ">
+        <Routes location={location}>
+          <Route path="/" element={<CoursesPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+        </Routes>
+      </div>
     </div>
   )
 }

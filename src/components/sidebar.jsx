@@ -20,17 +20,13 @@ export default function Sidebar() {
   const [expandedCourses, setExpandedCourses] = useState(new Set([0]))
   const [expandedTopics, setExpandedTopics] = useState(new Set())
 
-  const toggleCourse = (index) => {
-    const updated = new Set(expandedCourses)
-    updated.has(index) ? updated.delete(index) : updated.add(index)
-    setExpandedCourses(updated)
-  }
+const toggleCourse = (index) => {
+  setExpandedCourses(new Set([index])); // only open selected
+};
 
-  const toggleTopic = (index) => {
-    const updated = new Set(expandedTopics)
-    updated.has(index) ? updated.delete(index) : updated.add(index)
-    setExpandedTopics(updated)
-  }
+const toggleTopic = (courseIndex, topicIndex) => {
+  setExpandedTopics(new Set([`${courseIndex}-${topicIndex}`])); // only open selected
+};
 
   return (
     <aside className="w-80 bg-[#0A0A0A] border-r border-white/5 text-white flex flex-col overflow-y-auto">
@@ -99,7 +95,7 @@ export default function Sidebar() {
                               : "text-gray-300 hover:bg-[#1A1A1A]"
                           )}
                          onClick={() => {
-  toggleTopic(`${cIndex}-${tIndex}`)
+toggleTopic(cIndex, tIndex)
 
   const state = useCoursesStore.getState()
   const realCourseIndex = state.courses.indexOf(course)
@@ -170,7 +166,7 @@ export default function Sidebar() {
                                   {completed ? (
                                     <CheckCircle2 className={cn("h-3 w-3", activeSub ? "text-black" : "text-emerald-400")} />
                                   ) : (
-                                    <Circle className={cn("h-3 w-3", activeSub ? "opacity-text-black" : "opacity-40")} />
+                                    <Circle className={cn("h-3 w-3", activeSub ? "text-black" : "opacity-40")} />
                                   )}
                                 </button>
                               );

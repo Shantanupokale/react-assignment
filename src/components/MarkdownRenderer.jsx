@@ -30,7 +30,7 @@ export default function MarkdownRenderer({ content }) {
             </p>
           ),
           blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-primary/70 pl-4 italic text-foreground/80 bg-muted/30 mt-1 py-0.5 rounded-r-lg">
+            <blockquote className="border-l-4 border-[#00BC7D]/70 pl-4 italic text-primary text-foreground/80  mt-1 py-0.5 rounded-r-lg">
               {children}
             </blockquote>
           ),
@@ -79,7 +79,7 @@ export default function MarkdownRenderer({ content }) {
                 style={vscDarkPlus}
                 language={match[1]}
                 PreTag="div"
-                className="rounded-lg shadow-md my-4"
+                className="rounded-lg my-4"
                 {...props}
               >
                 {String(children).replace(/\n$/, "")}

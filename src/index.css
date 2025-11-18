@@ -1,7 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+@import url('https://fonts.googleapis.com/css2?family=Geist+Sans:wght@100..900&display=swap');
 @custom-variant dark (&:is(.dark *));
+
+:root {
+  font-family: "Geist Sans", sans-serif;
+}
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -110,11 +115,15 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+:root {
+  color-scheme: light dark;
+  font-family: "Geist Sans", sans-serif;
+}
+
+* {
+  @apply border-border outline-ring/50;
+}
+
+html, body {
+  @apply bg-background text-foreground;
 }
