@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink, useLocation } from "react-router-dom"
 import CoursesPage from "./pages/CoursesPage.jsx"
 import AdminPage from "./pages/AdminPage.jsx"
+import EditCoursePage from "./pages/EditCoursePage.jsx"
 
 function App() {
   const location = useLocation()
@@ -59,6 +60,8 @@ function App() {
         <Routes location={location}>
           <Route path="/" element={<CoursesPage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/new" element={<EditCoursePage />} />
+<Route path="/admin/edit/:courseIndex" element={<EditCoursePage />} />
         </Routes>
       </div>
     </div>

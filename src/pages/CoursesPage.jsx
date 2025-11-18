@@ -6,7 +6,7 @@ import EmptyState from "../components/course/EmptyState.jsx"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import MarkdownRenderer from "@/components/MarkdownRenderer.jsx"
+import MarkdownRenderer from "@/components/course/MarkdownRenderer.jsx"
 
 export default function CoursesPage() {
   const {

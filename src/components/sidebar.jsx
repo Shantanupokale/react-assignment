@@ -1,11 +1,13 @@
-import { useState } from "react"
+import { Search, ChevronDown, ChevronRight, CheckCircle2, Circle } from "lucide-react"
 import { useCoursesStore } from "../store/useCoursesStore"
-import { ChevronDown, ChevronRight, CheckCircle2, Circle } from "lucide-react"
 import { cn } from "../lib/utils"
+import { useState } from "react"
 
 export default function Sidebar() {
   const {
-    courses,
+    filteredCourses,
+    searchQuery,
+    setSearchQuery,
     selectedCourseIndex,
     selectedTopicIndex,
     selectedSubtopicIndex,
@@ -20,22 +22,58 @@ export default function Sidebar() {
   const [expandedCourses, setExpandedCourses] = useState(new Set([0]))
   const [expandedTopics, setExpandedTopics] = useState(new Set())
 
+  const courses = filteredCourses()
 const toggleCourse = (index) => {
-  setExpandedCourses(new Set([index])); // only open selected
-};
+  setExpandedCourses((prev) => {
+    const newSet = new Set(prev)
+    if (newSet.has(index)) {
+      newSet.delete(index)
+    } else {
+      newSet.clear()
+      newSet.add(index)
+    }
+    return newSet
+  })
+}
 
-const toggleTopic = (courseIndex, topicIndex) => {
-  setExpandedTopics(new Set([`${courseIndex}-${topicIndex}`])); // only open selected
-};
+const toggleTopic = (cIndex, tIndex) => {
+  const key = `${cIndex}-${tIndex}`
+
+  setExpandedTopics((prev) => {
+    const newSet = new Set(prev)
+    if (newSet.has(key)) {
+      newSet.delete(key)
+    } else {
+      newSet.clear()
+      newSet.add(key)
+    }
+    return newSet
+  })
+}
+
 
   return (
     <aside className="w-80 bg-[#0A0A0A] border-r border-white/5 text-white flex flex-col overflow-y-auto">
+      {/* Header */}
       <div className="sticky top-0 bg-[#0A0A0A] p-4 border-b border-white/10 backdrop-blur">
         <h2 className="text-sm font-bold tracking-wide text-gray-200">
           Your Learning
         </h2>
+
+        {/* SEARCH INPUT (added) */}
+        <div className="relative mt-3">
+          <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-gray-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search…"
+            className="w-full rounded-md bg-[#111] border border-white/10 py-1.5 pl-8 pr-3 text-xs text-gray-300 placeholder-gray-500 focus:ring-1 focus:ring-white/30 outline-none"
+          />
+        </div>
       </div>
 
+      {/* Courses list */}
       <nav className="p-3 space-y-2">
         {courses.map((course, cIndex) => {
           const expanded = expandedCourses.has(cIndex)
@@ -53,16 +91,11 @@ const toggleTopic = (courseIndex, topicIndex) => {
                     : "hover:bg-[#1A1A1A] text-gray-300"
                 )}
                 onClick={() => {
-  toggleCourse(cIndex)
-  
-  const state = useCoursesStore.getState()
-  const realIndex = state.courses.indexOf(course)
-
-  setCourseIndex(realIndex)
-  setTopicIndex(null)
-  setSubtopicIndex(null)
-}}
-
+                  toggleCourse(cIndex)
+                  setCourseIndex(cIndex)
+                  setTopicIndex(null)
+                  setSubtopicIndex(null)
+                }}
               >
                 {expanded ? (
                   <ChevronDown className="h-4 w-4 opacity-70" />
@@ -94,19 +127,12 @@ const toggleTopic = (courseIndex, topicIndex) => {
                               ? "bg-[#222222] text-white shadow-inner"
                               : "text-gray-300 hover:bg-[#1A1A1A]"
                           )}
-                         onClick={() => {
-toggleTopic(cIndex, tIndex)
-
-  const state = useCoursesStore.getState()
-  const realCourseIndex = state.courses.indexOf(course)
-  const realTopicIndex =
-    state.courses[realCourseIndex].topics.indexOf(topic)
-
-  setCourseIndex(realCourseIndex)
-  setTopicIndex(realTopicIndex)
-  setSubtopicIndex(null)
-}}
-
+                          onClick={() => {
+                            toggleTopic(cIndex, tIndex)
+                            setCourseIndex(cIndex)
+                            setTopicIndex(tIndex)
+                            setSubtopicIndex(null)
+                          }}
                         >
                           <div className="flex items-center gap-2">
                             {expandedTopic ? (
@@ -124,8 +150,9 @@ toggleTopic(cIndex, tIndex)
                         </button>
 
                         {/* Subtopics */}
-                        {expandedTopic && (
-                          <div className="ml-5 mt-1 space-y-1">
+                         {expandedTopic && (
+  <div className="ml-5 mt-1 space-y-1 border-l border-white/5 pl-3">
+
                             {topic.subtopics.map((sub, sIndex) => {
                               const activeSub =
                                 activeTopic && sIndex === selectedSubtopicIndex
@@ -145,31 +172,19 @@ toggleTopic(cIndex, tIndex)
                                       : "text-gray-400 hover:text-white hover:bg-[#1A1A1A]"
                                   )}
                                   onClick={() => {
-                                    const state = useCoursesStore.getState();
-                                    const realCourseIndex =
-                                      state.courses.indexOf(course);
-                                    const realTopicIndex =
-                                      state.courses[
-                                        realCourseIndex
-                                      ].topics.indexOf(topic);
-                                    const realSubIndex =
-                                      state.courses[realCourseIndex].topics[
-                                        realTopicIndex
-                                      ].subtopics.indexOf(sub);
-
-                                    setCourseIndex(realCourseIndex);
-                                    setTopicIndex(realTopicIndex);
-                                    setSubtopicIndex(realSubIndex);
+                                    setCourseIndex(cIndex)
+                                    setTopicIndex(tIndex)
+                                    setSubtopicIndex(sIndex)
                                   }}
                                 >
                                   {sub.title}
                                   {completed ? (
                                     <CheckCircle2 className={cn("h-3 w-3", activeSub ? "text-black" : "text-emerald-400")} />
                                   ) : (
-                                    <Circle className={cn("h-3 w-3", activeSub ? "text-black" : "opacity-40")} />
+                                    <Circle className="h-3 w-3 opacity-40" />
                                   )}
                                 </button>
-                              );
+                              )
                             })}
                           </div>
                         )}

@@ -7,6 +7,10 @@ import {
   Card, CardHeader, CardTitle, CardDescription, CardContent
 } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
+import { useNavigate } from "react-router-dom"
+import { useCoursesStore } from "@/store/useCoursesStore"
+import { Button } from "@/components/ui/button"
+
 
 // Course name finder
 const getCourseName = (courseId) => {
@@ -20,6 +24,8 @@ export default function AdminPage() {
 
   const students = users.filter((u) => u.role === "student")
   const teachers = users.filter((u) => u.role === "teacher")
+   const navigate = useNavigate()
+  const { courses, resetToDefaults } = useCoursesStore()
 
   return (
     <div className="space-y-6 px-4 py-6 max-w-6xl mx-auto">
@@ -148,6 +154,37 @@ export default function AdminPage() {
         </CardContent>
       </Card>
 
+      
+      <div className="border rounded-xl p-6 bg-[#0A0A0A] border-white/10">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-white">Manage Courses</h2>
+        </div>
+
+        <div className="space-y-3">
+          {courses.map((course, i) => (
+            <div
+              key={i}
+              className="flex justify-between items-center px-3 py-2 bg-[#111] rounded-md border border-white/10"
+            >
+              <span className="text-sm text-gray-300">{course.title}</span>
+              <Button size="sm" variant="secondary"
+                onClick={() => navigate(`/admin/edit/${i}`)}
+              >
+                Edit
+              </Button>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex gap-3 mt-4">
+          <Button variant="default" onClick={() => navigate("/admin/new")}>
+             Add Course
+          </Button>
+          <Button variant="destructive" onClick={resetToDefaults}>
+            Reset Data
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }
