@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, CheckCircle2, Circle } from "lucide-react"
 import { useCoursesStore } from "../store/useCoursesStore.js"
-import Sidebar from "../components/Sidebar.jsx"
+import Sidebar from "../components/sidebar.jsx"
 import Breadcrumbs from "../components/course/Breadcrumbs.jsx"
 import EmptyState from "../components/course/EmptyState.jsx"
 import { Badge } from "@/components/ui/badge"
