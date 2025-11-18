@@ -52,6 +52,16 @@ export const useCoursesStore = create(
           );
       },
 
+      importCourses: (newCourses) => {
+        set({ courses: newCourses })
+      },
+
+      // NEW: Reset only courses back to defaults JSON
+      resetCoursesOnly: () => {
+        set({ courses: initialCourses })
+      },
+
+      
       setCourseIndex: (courseIndex) =>
         set({
           selectedCourseIndex: courseIndex,
@@ -140,13 +150,14 @@ export const useCoursesStore = create(
       name: "course-progress-storage",
       storage: createJSONStorage(() => window.localStorage),
      partialize: (state) => ({
-  courses: state.courses,
-  progress: state.progress,
-  selectedCourseIndex: state.selectedCourseIndex,
-  selectedTopicIndex: state.selectedTopicIndex,
-  selectedSubtopicIndex: state.selectedSubtopicIndex,
-  searchQuery: state.searchQuery,
-}),
+        // persist newCourses too
+        courses: state.courses,
+        selectedCourseIndex: state.selectedCourseIndex,
+        selectedTopicIndex: state.selectedTopicIndex,
+        selectedSubtopicIndex: state.selectedSubtopicIndex,
+        progress: state.progress,
+        searchQuery: state.searchQuery,
+      }),
 
     }
   )
