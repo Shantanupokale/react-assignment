@@ -30,7 +30,7 @@ export default function MarkdownRenderer({ content }) {
             </p>
           ),
           blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-[#00BC7D]/70 pl-4 italic text-primary text-foreground/80  mt-1 py-0.5 rounded-r-lg">
+            <blockquote className="border-l-4 border-[#00BC7D]/70 pl-4 italic text-primary  mt-1 py-0.5 rounded-r-lg">
               {children}
             </blockquote>
           ),
